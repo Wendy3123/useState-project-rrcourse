@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
 
-function App() {
+export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Counter />
     </div>
   );
 }
 
-export default App;
+function Counter() {
+  const [count, setCount] = useState(0);
+  const [step, setStep] = useState(1);
+  const myDate = new Date("August 17 2023"); //dont worry much of the date part just understand the useState()
+  myDate.setDate(myDate.getDate() + count);
+  return (
+    <>
+      <div>
+        <div>
+          <button onClick={() => setStep(step - 1)}>-</button>
+          <span>Step: {step}</span>
+          <button onClick={() => setStep(step + 1)}>+</button>
+        </div>
+      </div>
+      <div>
+        <div>
+          <button onClick={() => setCount(count - step)}>-</button>
+          <span>Count: {count}</span>
+          <button onClick={() => setCount(count + step)}>+</button>
+        </div>
+      </div>
+      <p>{myDate.toDateString()}</p>
+    </>
+  );
+}
