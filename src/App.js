@@ -12,21 +12,36 @@ export default function App() {
 function Counter() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(1);
+
+  function handleReset() {
+    setCount(0);
+    setStep(1);
+  }
+
   const myDate = new Date("Aug 17 2023"); //dont worry much of the date part just understand the useState()
   myDate.setDate(myDate.getDate() + count);
   return (
     <>
       <div>
         <div>
-          <button onClick={() => setStep(step - 1)}>-</button>
-          <span>Step: {step}</span>
-          <button onClick={() => setStep(step + 1)}>+</button>
+          <input
+            type="range"
+            min="0"
+            max="10"
+            value={step}
+            onChange={(e) => setStep(Number(e.target.value))}
+          ></input>
+          <span>{step}</span>
         </div>
       </div>
       <div>
         <div>
           <button onClick={() => setCount(count - step)}>-</button>
-          <span>Count: {count}</span>
+          <input
+            type="text"
+            value={count}
+            onChange={(e) => setCount(Number(e.target.value))}
+          />
           <button onClick={() => setCount(count + step)}>+</button>
         </div>
       </div>
@@ -43,6 +58,13 @@ function Counter() {
         </span>
         <span>{myDate.toDateString()}</span>
       </p>
+
+      {count !== 0 || step !== 1 ? ( //if the count or step changes from the default value we will be able to see and use the reset button to reset our data
+        //else :null which means otherwise if the count/step is not chnaged then users dont see the reset button
+        <div>
+          <button onClick={handleReset}>Reset</button>
+        </div>
+      ) : null}
     </>
   );
 }
